@@ -3,13 +3,13 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 
 	_ "github.com/go-sql-driver/mysql" // Import the MySQL driver
-	"github.com/labstack/echo/v4"
 )
 
 type payload struct {
@@ -49,9 +49,9 @@ func main() {
 	password := os.Getenv("DB_PASSWORD")
 	port := os.Getenv("DB_PORT")
 	username := os.Getenv("DB_USERNAME")
-	tableName := os.Getenv("TABLE_NAME")
+	dbName := os.Getenv("DB_NAME")
 
-	dbURI := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True", username, password, host, port, tableName)
+	dbURI := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True", username, password, host, port, dbName)
 	db, err := sql.Open("mysql", dbURI)
 	if err != nil {
 		log.Fatalf("Error connecting to DB: %v", err)
@@ -62,5 +62,5 @@ func main() {
 		return Process(c, db)
 	})
 
-	e.Logger.Fatal(e.Start(":1234"))
+	e.Logger.Fatal(e.Start(os.Getenv("PORT")))
 }
