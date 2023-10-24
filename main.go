@@ -3,12 +3,12 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
-
-	_ "github.com/go-sql-driver/mysql" // Import the MySQL driver
 )
 
 type payload struct {
