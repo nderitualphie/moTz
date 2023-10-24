@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
 	"os"
@@ -61,6 +60,9 @@ func main() {
 	e.POST("/moTz", func(c echo.Context) error {
 		return Process(c, db)
 	})
+	host := "0.0.0.0"
+	port := os.Getenv("PORT")
 
-	e.Logger.Fatal(e.Start(os.Getenv("PORT")))
+	hst := fmt.Sprintf("%s:%s", host, port)
+	e.Logger.Fatal(e.Start(hst))
 }
