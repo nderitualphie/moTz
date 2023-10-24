@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
 	"os"
@@ -30,7 +29,7 @@ func Process(c echo.Context, db *sql.DB) error {
 	message := p.Message
 
 	// Use placeholders in the SQL query to avoid SQL injection
-	query := fmt.Sprintf("INSERT INTO %v (message, sender_address, dest_address) VALUES (?, ?, ?)", tableName, p.Message, msisdn, shortcode)
+	query := fmt.Sprintf("INSERT INTO %v (message, sender_address, dest_address) VALUES (?, ?, ?)", tableName)
 
 	_, err := db.Exec(query, message, msisdn, shortcode)
 	if err != nil {
