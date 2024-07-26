@@ -29,7 +29,7 @@ func Process(c echo.Context, db *sql.DB) error {
 	message := p.Message
 
 	// Use placeholders in the SQL query to avoid SQL injection
-	query := fmt.Sprintf("INSERT INTO %v (message, sender_address, dest_address) VALUES (?, ?, ?)", tableName)
+	query := fmt.Sprintf("INSERT INTO %v (message, sender_address, dest_address,date_time, created_on) VALUES (?, ?, ?,NOW(),NOW())", tableName)
 
 	_, err := db.Exec(query, message, msisdn, shortcode)
 	if err != nil {
